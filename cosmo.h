@@ -58,11 +58,11 @@ typedef struct COS_TypeInfo
 
 
 
-typedef struct COS_LocalType
+typedef struct COS_TypeModuLoc
 {
     u32 locId;
-    u32 modId;
-} COS_LocalType;
+    u32 moduId;
+} COS_TypeModuLoc;
 
 typedef void(*COS_OprCall)(void*** poolTable, const COS_Cell* ins, COS_Cell* outs);
 
@@ -75,9 +75,9 @@ typedef struct COS_OprInfo
 {
     const char* name;
     u32 numIns;
-    COS_LocalType ins[COS_OprIO_MAX];
+    COS_TypeModuLoc ins[COS_OprIO_MAX];
     u32 numOuts;
-    COS_LocalType outs[COS_OprIO_MAX];
+    COS_TypeModuLoc outs[COS_OprIO_MAX];
     COS_OprCall call;
     bool hasSideEffect;
 } COS_OprInfo;
@@ -98,9 +98,6 @@ typedef struct COS_Modu
     const char** deps;
 } COS_Modu;
 
-u32 COS_moduTypeId(COS_Modu* modu, const char* name);
-u32 COS_moduOprId(COS_Modu* modu, const char* name);
-
 
 
 
@@ -110,8 +107,6 @@ typedef struct COS_Lang COS_Lang;
 
 COS_Lang* COS_langNew(u32 numModus, const COS_Modu* modus);
 void COS_langFree(COS_Lang* lang);
-
-u32 COS_langModuId(COS_Lang* lang, const char* name);
 
 
 
@@ -125,13 +120,13 @@ typedef struct COS_Var { u32 id; } COS_Var;
 
 typedef struct COS_Type
 {
-    u32 modId;
+    u32 moduId;
     u32 locId;
 } COS_Type;
 
 typedef struct COS_Opr
 {
-    u32 modId;
+    u32 moduId;
     u32 locId;
 } COS_Opr;
 
